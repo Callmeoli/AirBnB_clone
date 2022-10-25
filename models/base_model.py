@@ -15,7 +15,7 @@ class BaseModel:
 
     def __str__(self):
         """Return str representations"""
-        return "[{}] ({}) {}".format(self.__class__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
         """ Edit the updated time """
@@ -28,3 +28,5 @@ class BaseModel:
         dic['created_at'] = dic['created_at'].isoformat()
         dic['updated_at'] = dic['updated_at'].isoformat()
         return dic
+
+
