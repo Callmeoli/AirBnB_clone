@@ -1,4 +1,5 @@
 import json
+import os.path
 
 
 class FileStorage:
@@ -19,8 +20,20 @@ class FileStorage:
     def save(self):
         """ Serializes __objects to the JSON file """
          with open(self.__file_path, 'w', encoding='utf-8') as fp:
-             j_dic = {}
+             tojson_dic = {}
              for k ,v in self.__objects.items():
                  dic = self.__objects[k].to_dic()
-                 j_dic[k] = dic
-            fp.write(json.dumps(j_dic))
+                 tojson_dic[k] = dic
+            fp.write(json.dumps(tojson_dic))
+
+
+    def reload(self):
+        """ deserializes the JSON file to __objects """
+        if os.path.isfile(self.__file_path) is True:
+            jason_data = {}
+            with open(self.__file_path, 'r', encoding='utf-8') as fp:
+                file_data = fp.read()
+                jason_data = json.loads(file_data)
+
+            for k, v in jason_data.items():
+                self.new(v)
