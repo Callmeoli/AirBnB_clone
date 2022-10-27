@@ -10,6 +10,7 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
+
     def all(self):
         """ Return the dictionary objects """
         return self.__objects
@@ -21,7 +22,7 @@ class FileStorage:
 
     def save(self):
         """ Serializes __objects to the JSON file """
-        with open(self.__file_path, 'w', encoding='utf-8') as fp:
+        with open(self.__file_path, 'w+', encoding='utf-8') as fp:
             tojson_dic = {}
             for k, v in self.__objects.items():
                 dic = self.__objects[k].to_dict()
@@ -36,5 +37,8 @@ class FileStorage:
                 file_data = fp.read()
                 jason_data = json.loads(file_data)
 
-        for k, v in jason_data.items():
-            self.__objects[k] = BaseModel(**v)
+            for k, v in jason_data.items():
+                self.__objects[k] = BaseModel(**v)
+
+
+
