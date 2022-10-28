@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """"Uses Cmd module"""
+import re
 import cmd
-from models .base_model import BaseModel
+from models.base_model import BaseModel
+from models.user import User
 from models import storage
 class HBNBCommand(cmd.Cmd):
     """Class HBNB"""
@@ -25,9 +27,9 @@ class HBNBCommand(cmd.Cmd):
         elif globals().get(line) is None:
             print("** class doesn't exist **")
         else:
-            base = BaseModel()
-            base.save()
-            print(base.id)
+            ins = User()
+            ins.save()
+            print(ins.id)
 
     def do_show(self, line):
         """show instance"""
@@ -43,7 +45,7 @@ class HBNBCommand(cmd.Cmd):
         elif a[0]+"."+a[1] not in storage.all():
             print("** no instance found **")
         else:
-            print(a[0]+"."+a[1])
+            print(storage.all()[a[0]+"."+a[1]])
 
     def do_destroy(self, line):
         """ Deletes an instance based on the class name and id """
@@ -64,12 +66,39 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, line):
         """  Prints all string representation of all instances based or not on the class name """
         if len(line) == 0:
-            print("** class name missing **")
+            for k, v in storage.all().items():
+                print(storage.all())
         elif globals().get(line) is None:
             print("** class doesn't exist **")
         else:
-            for k in storage.all():
-                print(f'["{storage.all()[k]}"]')
+            for k, v in storage.all().items():
+                if line in k:
+                    print(storage.all()[k])
+    def default(self, line):
+        """custom """
+        a = []
+        for i in line.split('.'):
+            a.append(i)
+        if len(line) < 1:
+            print("format Error")
+        elif globals().get(a[0]) is None:
+            print("** class doesn't exist **")
+        else:
+            check_c = re.sub("[\(\[].*?[\)\]]", "", a[1])
+            #print(a[1][len(re.sub("[\(\[].*?[\)\]]", "", a[1]))+2:-2])
+            if check_c == "all":
+                HBNBCommand.do_all(self, a[0])
+            elif check_c == "count":
+                HBNBCommand.count(self, a[0])
+            elif check_c == "show":
+                HBNBCommand.do_show(self,a[0]+" "+a[1][len(re.sub("[\(\[].*?[\)\]]", "", a[1]))+2:-2])
+            elif check_c == "destory":
+                HBNBCommand.do_destroy(self, a[0] + " " + a[1][len(re.sub("[\(\[].*?[\)\]]", "", a[1])) + 2:-2])
+            elif check_c == "update":
+                lists = a[1][len(re.sub("[\(\[].*?[\)\]]", "", a[1])) + 1:-1].split(",")
+                l1 = lists[0].replace('"',"").strip()
+                p = lists[1].replace('"',"").strip() + " " + lists[2].replace('"',"").strip()
+                HBNBCommand.do_update(self, a[0] + " " + l1 + " " + p)
 
     def do_update(self, line):
         """ Updates an instance based on the class name and id by adding or updating attribute """
@@ -91,17 +120,21 @@ class HBNBCommand(cmd.Cmd):
         else:
             for k,v in storage.all().items():
                if a[0] + "." + a[1] == k:
-                   setattr(storage.all()[k],a[2],a[3])
+                   #print(storage.all()[k])
+                   setattr(storage.all()[k], a[2], a[3])
                    storage.save()
                    break
-
-
-
-
-
-
-
-
-
+    def count(self, line):
+        """ count instances"""
+        i = 0
+        if len(line) == 0:
+            print("** class name missing **")
+        elif globals().get(line) is None:
+            print("** class doesn't exist **")
+        else:
+            for k, v in storage.all().items():
+                if line in k:
+                    i = i + 1
+            print(i)
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
