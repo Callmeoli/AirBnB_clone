@@ -36,3 +36,5 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(hasattr(bm1, "updated_at"))
         self.assertNotEqual(bm1.updated_at, bm2.updated_at)
         self.assertIsInstance(bm1.updated_at, datetime.datetime)
+if __name__ == "__main__":
+    unittest.main()
