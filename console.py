@@ -71,15 +71,8 @@ class HBNBCommand(cmd.Cmd):
             if not (key in obj.keys()):
                 print("** no instance found **")
                 return
-            path = storage.path_()
             del obj[key]
-
-            with open(path, 'w', encoding='utf-8') as fp:
-                tojson_dic = {}
-                for k, v in obj.items():
-                    dic = obj[k].to_dict()
-                    tojson_dic[k] = dic
-                fp.write(json.dumps(tojson_dic))
+            storage.save()
 
     def do_all(self, arg):
         to_list = []
@@ -96,6 +89,26 @@ class HBNBCommand(cmd.Cmd):
             print(to_list)
         else:
             print("** class doesn't exist **")
+
+    def do_update(self, arg):
+        if len(shlex.split(arg)) == 0:
+            print("** class name missing **")
+        elif len(shlex.split(arg)) == 1:
+            if not (shlex.split(arg))[0] in self.classes:
+                print("** class doesn't exist **")
+                return
+            else:
+                print("** instance id missing **")
+        elif len(shlex.split(arg)) == 2:
+            if not (shlex.split(arg))[0] in self.classes:
+                print("** class doesn't exist **")
+                return
+            key = "{}.{}" \
+                .format((shlex.split(arg))[0], ((shlex.split(arg))[1]))
+            obj_u = storage.all()
+            if not (key in obj_u.keys()):
+                print("** no instance found **")
+                return
 
 
 if __name__ == '__main__':
