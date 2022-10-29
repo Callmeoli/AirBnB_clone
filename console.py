@@ -27,7 +27,7 @@ class HBNBCommand(cmd.Cmd):
         elif globals().get(line) is None:
             print("** class doesn't exist **")
         else:
-            ins = User()
+            ins = line()
             ins.save()
             print(ins.id)
 
