@@ -15,40 +15,31 @@ from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     """ entry point of the command interpreter: """
-
-    classes = {
-        "BaseModel": BaseModel,
-        "User": User,
-        "Place": Place,
-        "State": State,
-        "City": City,
-        "Amenity": Amenity,
-        "Review": Review
-
-    }
-
+    """Class HBNB"""
     prompt = "(hbnb)"
 
-    def do_quit(self, arg):
-        """Quit command to exit the program"""
+    def do_quit(self, line):
+        """ Quit command to exit the program """
         return True
 
-    def do_EOF(self):
-        """Quit in the end of file"""
+    def do_EOF(self, line):
+        """ End of file marker"""
         return True
 
-    def do_create(self, arg):
-        """  Creates a new instance of BaseModel,\
-         saves it (to the JSON file) """
-        if not arg:
+    def emptyline(self):
+        """Empty commad"""
+        pass
+
+    def do_create(self, line):
+        """ creates class instance """
+        if len(line) == 0:
             print("** class name missing **")
-        elif arg in self.classes:
-            cls = self.classes[arg]
-            ins = cls()
+        elif globals().get(line) is None:
+            print("** class doesn't exist **")
+        else:
+            ins = eval(line)()
             ins.save()
             print(ins.id)
-        else:
-            print("** class doesn't exist **")
 
     def do_show(self, arg):
         """  Prints the string representation """
