@@ -6,7 +6,11 @@ import json
 import os.path
 from models.base_model import BaseModel
 from models.user import User
-
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.state import State
+from models.review import Review
 class FileStorage():
     """File storage class"""
 
@@ -22,8 +26,8 @@ class FileStorage():
 
     def save(self):
         """ serializes __objects to the JSON file (path: __file_path) """
-        for i in self.__object.keys():
-            print(type(self.__object[i].to_dict()))
+        #for i in self.__object.keys():
+            #print(type(self.__object[i].to_dict()))
         new_dic = {key: self.__object[key].to_dict() for key in self.__object.keys()}
         with open(self.__file_path,"w") as f:
             f.write(json.dumps(new_dic))
