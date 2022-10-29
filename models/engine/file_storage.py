@@ -38,7 +38,3 @@ class FileStorage:
 
             for k, v in jason_data.items():
                 self.__objects[k] = BaseModel(**v)
-
-    def path_(self):
-        """ Returns paths"""
-        return self.__file_path
