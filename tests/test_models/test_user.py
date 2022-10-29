@@ -43,7 +43,7 @@ class TestUser(unittest.TestCase):
 
     def test_classfound(self):
         """ class found in __object"""
-        self.assertIn(User(),storage.all().values())
+        self.assertIn(User(), storage.all().values())
 
     def test_instancedifferent(self):
         """check for instance different"""
@@ -58,11 +58,11 @@ class TestUser(unittest.TestCase):
     def test_save(self):
         """ check for created_at and update_at"""
         User.save(self)
-        self.assertNotEqual(User().created_at,User().updated_at)
+        self.assertNotEqual(User().created_at, User().updated_at)
 
     def test_subclass(self):
         """ checking for issubclass"""
-        self.assertTrue(issubclass(User().__class__,BaseModel),True)
+        self.assertTrue(issubclass(User().__class__, BaseModel), True)
     def test_date_interval_increated(self):
         """ created date interval checking"""
         user1 = User()
