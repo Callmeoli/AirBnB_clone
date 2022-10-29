@@ -13,7 +13,7 @@ from datetime import datetime
 class TestPlace(unittest.TestCase):
     """ UnitTest for  class Place"""
     def test_equal(self):
-        """ check for attributes  have correclty assigned"""
+        """ check for  attributes  have correclty assigned"""
         place = Place()
         place.name = "Alx"
         place.state_id = "alx@gmail.com"
