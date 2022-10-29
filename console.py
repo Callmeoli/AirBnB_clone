@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 import cmd
-import sys
 from models.base_model import BaseModel
 import shlex
 from models import storage
@@ -25,18 +24,16 @@ class HBNBCommand(cmd.Cmd):
         "Review": Review
 
     }
-
-    def __init__(self):
-        super().__init__()
-        self.prompt = "(hbnb)"
+        
+    prompt = "(hbnb)"
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
-        sys.exit()
+        return True
 
     def do_EOF(self):
         """Quit in the end of file"""
-        sys.exit()
+        return True
 
     def do_create(self, arg):
         """  Creates a new instance of BaseModel,\
