@@ -26,7 +26,7 @@ class HBNBCommand(cmd.Cmd):
         "Review": Review
 
     }
-        
+
     prompt = "(hbnb)"
 
     def do_quit(self, arg):
@@ -96,7 +96,9 @@ class HBNBCommand(cmd.Cmd):
                 (shlex.split(arg))[0] in self.classes:
             obj_l = storage.all()
             for k, v in obj_l.items():
-                to_list.append(str(obj_l[k]))
+                y = k.split(".")[0]
+                if arg == y:
+                    to_list.append(str(obj_l[k]))
             print(to_list)
         elif len(shlex.split(arg)) == 0:
             obj_l = storage.all()
