@@ -3,14 +3,15 @@ import sys
 from models.base_model import BaseModel
 import shlex
 from models import storage
-import json
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
     """ entry point of the command interpreter: """
 
     classes = {
-        "BaseModel": BaseModel
+        "BaseModel": BaseModel,
+        "User": User
     }
 
     def __init__(self):
@@ -51,6 +52,9 @@ class HBNBCommand(cmd.Cmd):
             key = "{}.{}" \
                 .format((shlex.split(arg))[0], ((shlex.split(arg))[1]))
             obj_s = storage.all()
+            if key not in obj_s.keys():
+                print("** no instance found **")
+                return
             for k, v in obj_s.items():
                 if key == k:
                     print(v)
@@ -75,6 +79,7 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, arg):
+        """  Prints all string representation of all instances """
         to_list = []
         if len(shlex.split(arg)) == 1 and \
                 (shlex.split(arg))[0] in self.classes:
@@ -91,6 +96,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_update(self, arg):
+        """ Updates an instance based on the class name and id """
         if len(shlex.split(arg)) == 0:
             print("** class name missing **")
         elif len(shlex.split(arg)) == 1:
