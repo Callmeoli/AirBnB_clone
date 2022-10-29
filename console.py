@@ -48,7 +48,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
 
-            key = "{}.{}"\
+            key = "{}.{}" \
                 .format((shlex.split(arg))[0], ((shlex.split(arg))[1]))
             obj_s = storage.all()
             for k, v in obj_s.items():
@@ -65,7 +65,7 @@ class HBNBCommand(cmd.Cmd):
         elif not (shlex.split(arg))[0] in self.classes:
             print("** class doesn't exist **")
         else:
-            key = "{}.{}"\
+            key = "{}.{}" \
                 .format((shlex.split(arg))[0], ((shlex.split(arg))[1]))
             obj = storage.all()
             if not (key in obj.keys()):
@@ -109,6 +109,36 @@ class HBNBCommand(cmd.Cmd):
             if not (key in obj_u.keys()):
                 print("** no instance found **")
                 return
+        elif len(shlex.split(arg)) == 3:
+            if not (shlex.split(arg))[0] in self.classes:
+                print("** class doesn't exist **")
+                return
+            key = "{}.{}" \
+                .format((shlex.split(arg))[0], ((shlex.split(arg))[1]))
+            obj_u = storage.all()
+            if not (key in obj_u.keys()):
+                print("** no instance found **")
+                return
+            if not (shlex.split(arg))[2] in obj_u[key].keys():
+                print("** attribute name missing **")
+                return
+            print("** value missing **")
+        elif len(shlex.split(arg)) == 4:
+            if not (shlex.split(arg))[0] in self.classes:
+                print("** class doesn't exist **")
+                return
+            key = "{}.{}" \
+                .format((shlex.split(arg))[0], ((shlex.split(arg))[1]))
+            obj_u = storage.all()
+            if not (key in obj_u.keys()):
+                print("** no instance found **")
+                return
+
+            if not (hasattr(obj_u[key], shlex.split(arg)[2])):
+                print("** attribute name missing **")
+            else:
+                setattr(obj_u[key], (shlex.split(arg))[2], (shlex.split(arg))[3])
+            storage.save()
 
 
 if __name__ == '__main__':
