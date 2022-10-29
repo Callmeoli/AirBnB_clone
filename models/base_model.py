@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-""" Basemodel  Module """
+""" Basemodel  Module
+ crearte and Update ids for class
+ and return dict represantation
+ """
 
 
 import copy
