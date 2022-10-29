@@ -3,6 +3,7 @@ import sys
 from models.base_model import BaseModel
 import shlex
 from models import storage
+import json
 
 
 class HBNBCommand(cmd.Cmd):
@@ -47,10 +48,35 @@ class HBNBCommand(cmd.Cmd):
         else:
 
             key = "{}.{}".format((shlex.split(arg))[0], ((shlex.split(arg))[1]))
-            obj = storage.all()
-            for k, v in obj.items():
+            obj_s = storage.all()
+            for k, v in obj_s.items():
                 if key == k:
                     print(v)
+
+    def do_destroy(self, arg):
+        """Deletes an instance based on the class name and id """
+
+        if not arg:
+            print("** class name missing **")
+        elif len(shlex.split(arg)) == 1:
+            print("** instance id missing **")
+        elif not (shlex.split(arg))[0] in self.classes:
+            print("** class doesn't exist **")
+        else:
+            key = "{}.{}".format((shlex.split(arg))[0], ((shlex.split(arg))[1]))
+            obj = storage.all()
+            if not (key in obj.keys()):
+                print("** no instance found **")
+                return
+            path = storage.path_()
+            del obj[key]
+
+            with open(path, 'w', encoding='utf-8') as fp:
+                tojson_dic = {}
+                for k, v in obj.items():
+                    dic = obj[k].to_dict()
+                    tojson_dic[k] = dic
+                fp.write(json.dumps(tojson_dic))
 
 
 if __name__ == '__main__':

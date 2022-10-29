@@ -10,7 +10,6 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-
     def all(self):
         """ Return the dictionary objects """
         return self.__objects
@@ -40,5 +39,6 @@ class FileStorage:
             for k, v in jason_data.items():
                 self.__objects[k] = BaseModel(**v)
 
-
-
+    def path_(self):
+        """ Returns paths"""
+        return self.__file_path
