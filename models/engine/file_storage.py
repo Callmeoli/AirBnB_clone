@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import json
 import os.path
 
@@ -22,10 +23,8 @@ class FileStorage:
     def save(self):
         """ Serializes __objects to the JSON file """
         with open(self.__file_path, 'w+', encoding='utf-8') as fp:
-            tojson_dic = {}
-            for k, v in self.__objects.items():
-                dic = self.__objects[k].to_dict()
-                tojson_dic[k] = dic
+            tojson_dic = {key: self.__objects[key].to_dict()
+                          for key, v in self.__objects.items()}
             fp.write(json.dumps(tojson_dic))
 
     def reload(self):
