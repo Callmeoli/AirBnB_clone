@@ -90,14 +90,13 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             check_c = re.sub("[\(\[].*?[\)\]]", "", a[1])
-            #print(a[1][len(re.sub("[\(\[].*?[\)\]]", "", a[1]))+2:-2])
             if check_c == "all":
                 HBNBCommand.do_all(self, a[0])
             elif check_c == "count":
                 HBNBCommand.count(self, a[0])
             elif check_c == "show":
                 HBNBCommand.do_show(self,a[0]+" "+a[1][len(re.sub("[\(\[].*?[\)\]]", "", a[1]))+2:-2])
-            elif check_c == "destory":
+            elif check_c == "destroy":
                 HBNBCommand.do_destroy(self, a[0] + " " + a[1][len(re.sub("[\(\[].*?[\)\]]", "", a[1])) + 2:-2])
             elif check_c == "update":
                 lists = a[1][len(re.sub("[\(\[].*?[\)\]]", "", a[1])) + 1:-1].split(",")
