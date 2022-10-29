@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+""" cmd module """
+
 import cmd
 from models.base_model import BaseModel
 import shlex
