@@ -26,7 +26,8 @@ class HBNBCommand(cmd.Cmd):
         sys.exit()
 
     def do_create(self, arg):
-        """  Creates a new instance of BaseModel, saves it (to the JSON file) """
+        """  Creates a new instance of BaseModel,\
+         saves it (to the JSON file) """
         if not arg:
             print("** class name missing **")
         elif arg in self.classes:
@@ -47,7 +48,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
 
-            key = "{}.{}".format((shlex.split(arg))[0], ((shlex.split(arg))[1]))
+            key = "{}.{}"\
+                .format((shlex.split(arg))[0], ((shlex.split(arg))[1]))
             obj_s = storage.all()
             for k, v in obj_s.items():
                 if key == k:
@@ -63,7 +65,8 @@ class HBNBCommand(cmd.Cmd):
         elif not (shlex.split(arg))[0] in self.classes:
             print("** class doesn't exist **")
         else:
-            key = "{}.{}".format((shlex.split(arg))[0], ((shlex.split(arg))[1]))
+            key = "{}.{}"\
+                .format((shlex.split(arg))[0], ((shlex.split(arg))[1]))
             obj = storage.all()
             if not (key in obj.keys()):
                 print("** no instance found **")
@@ -77,6 +80,22 @@ class HBNBCommand(cmd.Cmd):
                     dic = obj[k].to_dict()
                     tojson_dic[k] = dic
                 fp.write(json.dumps(tojson_dic))
+
+    def do_all(self, arg):
+        to_list = []
+        if len(shlex.split(arg)) == 1 and \
+                (shlex.split(arg))[0] in self.classes:
+            obj_l = storage.all()
+            for k, v in obj_l.items():
+                to_list.append(str(obj_l[k]))
+            print(to_list)
+        elif len(shlex.split(arg)) == 0:
+            obj_l = storage.all()
+            for k, v in obj_l.items():
+                to_list.append(str(obj_l[k]))
+            print(to_list)
+        else:
+            print("** class doesn't exist **")
 
 
 if __name__ == '__main__':
