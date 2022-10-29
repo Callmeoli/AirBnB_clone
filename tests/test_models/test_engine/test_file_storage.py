@@ -40,7 +40,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn("City." + City().id, models.storage.all().keys())
         self.assertIsNot("AbdiOlana." + User().id, models.storage.all().keys())
 
-    
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+""" Test Case For class and methods """
+
 
 import unittest
 from models.base_model import BaseModel

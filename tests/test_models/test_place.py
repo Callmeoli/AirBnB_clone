@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+""" Test Case For class and methods """
 import unittest
 import time
 from models.base_model import BaseModel
@@ -60,6 +60,13 @@ class TestPlace(unittest.TestCase):
         """ created date interval checking"""
         place1 = Place()
         place2 = Place()
+        self.assertLess(place1.created_at, place2.created_at)
+
+    def test_date_interval_in_updated(self):
+        """updated date interval checking"""
+        city1 = Place()
+        city2 = Place()
+        self.assertLess(city1.updated_at, city2.updated_at)
 
     def test_in_dict(self):
         """checking in dict function"""

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+""" Test Case For class and methods """
 import unittest
 from models.base_model import BaseModel
 from models.city import City
@@ -16,8 +16,8 @@ class TestCity(unittest.TestCase):
         city = City()
         city.state_id = "Addis-12345"
         city.name = "Addis Ababa"
-        self.assertEqual(city.state_id,"Addis-12345")
-        self.assertEqual(city.name,"Addis Ababa")
+        self.assertEqual(city.state_id, "Addis-12345")
+        self.assertEqual(city.name, "Addis Ababa")
         self.assertIsNotNone(City().name)
 
     def test_attr(self):
@@ -79,11 +79,6 @@ class TestCity(unittest.TestCase):
         city2 = City()
         self.assertNotEqual(city1.id, city2.id)
 
-    def test_style_check(self):
-        """ Tests pep8 style """
-        style = pep8.StyleGuide(quiet=True)
-        pep_8 = style.check_files(['models/city.py'])
-        self.assertEqual(pep_8.total_errors, 0, "Fix and update your user.py file")
 
 if __name__ == '__main__':
     unittest.main()

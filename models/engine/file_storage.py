@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+""" Define Class FileStorage """
+
 import json
 import os.path
 
@@ -30,7 +32,6 @@ class FileStorage:
     def reload(self):
         """ deserializes the JSON file to __objects """
         if os.path.exists(self.__file_path):
-            jason_data = {}
             with open(self.__file_path, 'r', encoding='utf-8') as fp:
                 file_data = fp.read()
                 jason_data = json.loads(file_data)
