@@ -76,5 +76,18 @@ class TestCity(unittest.TestCase):
         city2 = State()
         self.assertNotEqual(city1.id, city2.id)
 
+    def test_checking_for_functions(self):
+        self.assertIsNotNone(State.__doc__)
+
+    def test_style_check(self):
+        """ Tests pep8 style """
+        style = pep8.StyleGuide(quiet=True)
+        pep_8 = style.check_files(['models/user.py'])
+        self.assertEqual(pep_8.total_errors, 0, "Fix and update your user.py file")
+
+    def test_is_subclass(self):
+        state = State()
+        self.assertTrue(issubclass(self.state.__class__, BaseModel), True)
+
 if __name__ == '__main__':
     unittest.main()
